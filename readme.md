@@ -1,4 +1,3 @@
 # Natours Application
 
-Pipa Pipa Pipa
- 
+Build using modern technoologies
