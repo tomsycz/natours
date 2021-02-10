@@ -16,14 +16,14 @@ const userRouter = require('./routes/userRoutes');
 const reviewRouter = require('./routes/reviewRoutes');
 const bookingRouter = require('./routes/bookingRoutes');
 const viewRouter = require('./routes/viewRoutes');
-
+//Start sxpress appf
 const app = express();
-
+// ANIOTHER COMMENT
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 // 1) GLOBAL MIDDLEWARES
 
-// Serving static files
+// Serving static filesdsdasd
 app.use(express.static(path.join(__dirname, 'public')));
 // Set security HTTP headers
 app.use(
