@@ -5,7 +5,7 @@ import { updateSettings } from './updateSettings';
 import { displayMap } from './mapbox';
 import { bookTour } from './stripe';
 
-// DOM ELEMENTS
+// DOM ELEMENTS fasdfasdf
 const mapBox = document.getElementById('map');
 const loginForm = document.querySelector('.form--login');
 const logOutBtn = document.querySelector('.nav__el--logout');
@@ -66,4 +66,5 @@ if (bookBtn)
     e.target.textContent = 'Processing...';
     const { tourId } = e.target.dataset;
     bookTour(tourId);
+    console.log('dupa');
   });
