@@ -4,7 +4,7 @@ import { login, logout } from './login';
 import { updateSettings } from './updateSettings';
 import { displayMap } from './mapbox';
 import { bookTour } from './stripe';
-
+import { showAlert } from './alerts';
 // DOM ELEMENTS fasdfasdf
 const mapBox = document.getElementById('map');
 const loginForm = document.querySelector('.form--login');
@@ -67,3 +67,6 @@ if (bookBtn)
     const { tourId } = e.target.dataset;
     bookTour(tourId);
   });
+
+const alertMessage = document.querySelector('body').dataset.alert;
+if (alert) showAlert('success', alertMessage, 20);
