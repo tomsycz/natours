@@ -7,6 +7,8 @@ const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
 const cookieParser = require('cookie-parser');
+const compression = require('compression');
+
 // const pug = require('pug');
 
 const AppError = require('./utils/appError');
@@ -16,9 +18,12 @@ const userRouter = require('./routes/userRoutes');
 const reviewRouter = require('./routes/reviewRoutes');
 const bookingRouter = require('./routes/bookingRoutes');
 const viewRouter = require('./routes/viewRoutes');
-//Start sxpress appf
+
+//Start express app
 const app = express();
-// ANIOTHER COMMENT
+
+app.enable('trust proxy');
+
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 // 1) GLOBAL MIDDLEWARES
@@ -80,6 +85,8 @@ app.use(
 // // //   console.log('hello from the middleware');
 // // //   next();
 // // // });
+
+app.use(compression());
 
 //Test middleware
 app.use((req, res, next) => {
