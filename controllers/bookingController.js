@@ -9,7 +9,11 @@ const { findOne } = require('../models/tourModel');
 
 exports.getCheckoutSession = catchAsync(async (req, res, next) => {
   // 1) GEt the currently booked tour
+  console.log(req.params);
+
   const tour = await Tour.findById(req.params.tourId);
+
+  // const date = await req.params.dateId;
   // 2) Create checkout session
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ['card'],
@@ -57,7 +61,8 @@ const createBookingCheckout = async (session) => {
   const tour = session.client_reference_id;
   const user = (await User.findOne({ email: session.customer_email })).id;
   const price = session.amount_total / 100;
-  await Booking.create({ tour, user, price });
+  const startDate = 
+  await Booking.create({ tour, user, price, startDate });
 };
 exports.webhookCheckout = (req, res, next) => {
   const signature = req.headers['stripe-signature'];
@@ -76,6 +81,7 @@ exports.webhookCheckout = (req, res, next) => {
     createBookingCheckout(event.data.object);
   res.status(200).json({ received: true });
 };
+
 exports.getBooking = factory.getOne(Booking);
 exports.createBooking = factory.createOne(Booking);
 exports.deleteBooking = factory.deleteOne(Booking);

@@ -5,7 +5,10 @@ const Tour = require('../../models/tourModel');
 const User = require('../../models/userModel');
 const Review = require('../../models/reviewModel');
 
-dotenv.config({ path: '../../config.env' });
+// To import run "node ./dev-data/data/import-dev-data.js --import"
+// To delete run "node ./dev-data/data/import-dev-data.js --delete"
+
+dotenv.config({ path: './config.env' });
 
 const DB = process.env.DATABASE.replace(
   '<PASSWORD>',
@@ -22,6 +25,7 @@ mongoose
   .then(() => {
     console.log('DB connection successful!');
   });
+
 /// Read JSON File
 
 const tours = JSON.parse(fs.readFileSync(`${__dirname}/tours.json`, 'utf-8'));
@@ -33,9 +37,9 @@ const users = JSON.parse(fs.readFileSync(`${__dirname}/users.json`, 'utf-8'));
 // IMPORT DATA INTO DB
 const importData = async () => {
   try {
-    // await Tour.create(tours);
+    await Tour.create(tours);
     await Review.create(reviews, { validateBeforeSave: false });
-    // await User.create(users, { validateBeforeSave: false });
+    await User.create(users, { validateBeforeSave: false });
     console.log('data succesfully loaded');
   } catch (err) {
     console.log(err);

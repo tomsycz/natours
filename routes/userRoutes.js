@@ -1,9 +1,11 @@
 const express = require('express');
 const userController = require('../controllers/userController');
 const authController = require('../controllers/authController');
+const bookingRouter = require('./bookingRoutes');
 
 const router = express.Router();
 
+router.use('/:userId/bookings', bookingRouter);
 // NOT REST philosophy
 // Routes that DON'T require authentication
 router.post('/signup', authController.signup);

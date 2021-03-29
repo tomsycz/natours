@@ -65,8 +65,10 @@ exports.getAll = (Model) =>
   catchAsync(async (req, res, next) => {
     //To allow for nested GET review on tour (hack)
     let filter = {};
+    console.log(req.params);
     if (req.params.tourId) filter = { tour: req.params.tourId };
-
+    else if (req.params.userId) filter = { user: req.params.userId };
+    console.log(filter);
     // EXECUTE QUERY
     const features = new APIFeatures(Model.find(filter), req.query)
       .filter()
