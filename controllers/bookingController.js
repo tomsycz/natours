@@ -9,9 +9,13 @@ const { findOne } = require('../models/tourModel');
 
 exports.getCheckoutSession = catchAsync(async (req, res, next) => {
   // 1) GEt the currently booked tour
-  console.log(req.params);
+  console.log('REQQQ', req.params);
 
   const tour = await Tour.findById(req.params.tourId);
+  console.log(
+    'pic',
+    `${req.protocol}://${req.get('host')}/img/tours/${tour.imageCover}`
+  );
 
   // const date = await req.params.dateId;
   // 2) Create checkout session
@@ -61,8 +65,7 @@ const createBookingCheckout = async (session) => {
   const tour = session.client_reference_id;
   const user = (await User.findOne({ email: session.customer_email })).id;
   const price = session.amount_total / 100;
-  const startDate = 
-  await Booking.create({ tour, user, price, startDate });
+  await Booking.create({ tour, user, price });
 };
 exports.webhookCheckout = (req, res, next) => {
   const signature = req.headers['stripe-signature'];

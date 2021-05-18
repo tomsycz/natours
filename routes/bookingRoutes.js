@@ -1,27 +1,23 @@
 const express = require('express');
 const bookingController = require('../controllers/bookingController');
 const authController = require('../controllers/authController');
+const router = express.Router();
 
-const router = express.Router({ mergeParams: true }); // mergeParams in this case gives us access to :tourId and :userId from tourRoutes.js
+router.use(authController.protect);
 
-router
-  .route('/checkout-session/:tourId/:dateId')
-  .get(authController.protect, bookingController.getCheckoutSession);
+router.get('/checkout-session/:tourId', bookingController.getCheckoutSession);
 
-router.use(
-  authController.protect,
-  authController.restrictTo('admin', 'lead-guide')
-);
+router.use(authController.restrictTo('admin', 'lead-guide'));
 
 router
-  .route('/') //operates routes: /api/v1/bookings && /api/v1/tours/:tourId/bookings (tourRoues.js) && /api/v1/users/:userId/bookings (userRoutes.js)
+  .route('/')
   .get(bookingController.getAllBookings)
   .post(bookingController.createBooking);
 
 router
   .route('/:id')
   .get(bookingController.getBooking)
-  .delete(bookingController.deleteBooking)
-  .patch(bookingController.updateBooking);
+  .patch(bookingController.updateBooking)
+  .delete(bookingController.deleteBooking);
 
 module.exports = router;

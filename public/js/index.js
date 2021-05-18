@@ -12,9 +12,7 @@ const logOutBtn = document.querySelector('.nav__el--logout');
 const userDataForm = document.querySelector('.form-user-data');
 const userPasswordForm = document.querySelector('.form-user-password');
 const bookBtn = document.getElementById('book-tour');
-const selectStartDate = document.querySelector('.selectStartDate');
-// VALUES
-let current_element = null; //Date selector
+
 // DELEGATION
 if (mapBox) {
   const locations = JSON.parse(
@@ -66,10 +64,8 @@ if (bookBtn)
   bookBtn.addEventListener('click', (e) => {
     e.target.textContent = 'Processing...';
     const { tourId } = e.target.dataset;
-    const startDateId = selectStartDate.value;
-    console.log(tourId, startDateId)
-    console.log(e.target.dataset);
-    bookTour(tourId, startDateId);
+    // const startDateId = selectStartDate.value;
+    bookTour(tourId);
   });
 
 // if(dateBtns)
@@ -77,7 +73,7 @@ if (bookBtn)
 //     button.addEventListener('click', () => {
 //       if(current_element) {
 //       current_element.classList.remove('selected');
-//       } 
+//       }
 //       current_element = dateBtn;
 //       current_element.classList.add('selected');
 //     });
